@@ -10,6 +10,6 @@ namespace DataModels
     {
         public string Id { get; set; }
         public string Parent { get; set; }
-        public IEnumerable<Source> Sources { get; set; }
+        public List<Source> Sources { get; set; }
     }
 }
