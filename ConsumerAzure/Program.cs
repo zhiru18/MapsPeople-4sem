@@ -14,9 +14,8 @@ namespace ConsumerAzure {
         static void Main(string[] args) {
           while (true) {
                 Thread.Sleep(3000);
-                List<RootObject> data = GetData();
-                List<Location> locations = ConvertFromJsonToInternalModel(data);
-                foreach (Location l in locations) {
+                List<Location> data = GetData();
+                foreach (Location l in data) {
                     Console.WriteLine(l.Id);
                 }
             }
@@ -24,7 +23,7 @@ namespace ConsumerAzure {
 
 
 
-        private static List<RootObject> GetData() {
+        private static List<Location> GetData() {
             string jsonstr;
             var request = WebRequest.Create("https://mi-ucn-live-data.azurewebsites.net/occupancy?datasetid=6fbb3035c7e2436ba335edac") as HttpWebRequest;
             var response = request.GetResponse();
@@ -33,7 +32,7 @@ namespace ConsumerAzure {
             }
             List<RootObject> sources = JsonConvert.DeserializeObject<List<RootObject>>(jsonstr);
 
-            return sources;
+            return ConvertFromJsonToInternalModel(sources);
         }
 
         private static List<Location> ConvertFromJsonToInternalModel(List<RootObject> sources) {
